@@ -1,0 +1,363 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.app{font-family:Arial,sans-serif;background:#f9d923;color:#000;border:4px solid #000;min-height:700px;}
+.header{background:#f9d923;border-bottom:4px solid #000;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.logo{font-size:22px;font-weight:900;font-family:"Arial Black",sans-serif;line-height:1.1;cursor:pointer;}
+.nav{display:flex;gap:2px;}
+.nav-btn{background:transparent;border:2px solid transparent;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:Arial,sans-serif;color:#000;transition:all 0.08s;text-transform:uppercase;letter-spacing:0.5px;}
+.nav-btn:hover,.nav-btn.active{border:2px solid #000;background:#000;color:#f9d923;}
+.page{display:none;animation:fadeIn 0.25s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* HOME */
+.hero{background:#ff2e63;border-bottom:4px solid #000;padding:48px 28px;position:relative;overflow:hidden;}
+.hero-badge{display:inline-block;background:#000;color:#f9d923;font-size:10px;font-weight:700;padding:4px 10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.hero h1{font-size:56px;font-weight:900;color:#fff;line-height:1;font-family:"Arial Black",sans-serif;text-transform:uppercase;animation:float 2.4s ease-in-out infinite;}
+.hero p{color:rgba(255,255,255,0.85);font-size:14px;margin:14px 0 22px;max-width:360px;font-weight:500;line-height:1.6;}
+.hero-deco{position:absolute;right:20px;top:20px;font-size:110px;opacity:0.15;animation:spin 14s linear infinite;line-height:1;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.btn{border:3px solid #000;padding:11px 26px;font-size:13px;font-weight:900;cursor:pointer;box-shadow:5px 5px 0 #000;transition:all 0.08s;text-transform:uppercase;letter-spacing:1px;font-family:"Arial Black",sans-serif;}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 #000;}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 #000;}
+.btn-yellow{background:#f9d923;color:#000;}
+.btn-pink{background:#ff2e63;color:#fff;}
+.btn-black{background:#000;color:#f9d923;}
+.home-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;border-bottom:4px solid #000;}
+.feat{padding:24px 20px;border-right:3px solid #000;}
+.feat:last-child{border-right:none;}
+.feat-icon{font-size:28px;margin-bottom:10px;display:block;}
+.feat-title{font-size:13px;font-weight:900;text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;}
+.feat-text{font-size:12px;line-height:1.5;opacity:0.7;}
+.home-cta{background:#000;color:#f9d923;padding:36px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.home-cta h2{font-size:28px;font-weight:900;font-family:"Arial Black",sans-serif;text-transform:uppercase;color:#f9d923;}
+.home-cta p{font-size:13px;color:rgba(249,217,35,0.7);margin-top:6px;max-width:340px;}
+
+/* MENU */
+.menu-header{padding:24px 28px;border-bottom:3px solid #000;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.menu-header h2{font-size:36px;font-weight:900;font-family:"Arial Black",sans-serif;text-transform:uppercase;}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;}
+.filter-btn{background:#fff;border:2px solid #000;padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;transition:all 0.08s;}
+.filter-btn:hover,.filter-btn.on{background:#000;color:#f9d923;}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:16px;padding:24px 28px;}
+.mcard{background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;padding:18px 16px;cursor:pointer;transition:all 0.12s;position:relative;}
+.mcard:nth-child(odd){transform:rotate(-1.2deg);}
+.mcard:nth-child(even){transform:rotate(1.2deg);}
+.mcard:hover{transform:translate(-5px,-5px) rotate(0deg)!important;box-shadow:10px 10px 0 #000;background:#ff2e63;color:#fff;}
+.mcard:hover .mcard-price{color:#f9d923;}
+.mcard-tag{position:absolute;top:-8px;right:10px;background:#f9d923;border:2px solid #000;font-size:9px;font-weight:700;padding:2px 6px;letter-spacing:1px;text-transform:uppercase;}
+.mcard-icon{font-size:26px;margin-bottom:8px;display:block;}
+.mcard-name{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.mcard-desc{font-size:11px;opacity:0.6;margin-bottom:8px;line-height:1.4;}
+.mcard-price{font-size:15px;font-weight:900;transition:color 0.1s;}
+.mcard.hidden{display:none;}
+.cart-bar{background:#000;color:#f9d923;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;border-top:4px solid #000;}
+.cart-info{font-size:13px;font-weight:700;}
+.cart-count{background:#ff2e63;color:#fff;border:2px solid #f9d923;padding:2px 8px;font-size:11px;font-weight:900;margin-left:8px;}
+
+/* ABOUT */
+.about-hero{background:#000;color:#f9d923;padding:40px 28px;border-bottom:4px solid #f9d923;}
+.about-hero h1{font-size:48px;font-weight:900;font-family:"Arial Black",sans-serif;text-transform:uppercase;line-height:1;color:#f9d923;}
+.about-hero p{color:rgba(249,217,35,0.75);font-size:14px;margin-top:14px;max-width:440px;line-height:1.7;}
+.about-stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:4px solid #000;}
+.stat{padding:24px 16px;text-align:center;border-right:3px solid #000;}
+.stat:last-child{border-right:none;}
+.stat-num{font-size:34px;font-weight:900;color:#ff2e63;font-family:"Arial Black",sans-serif;display:block;}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:0.5;margin-top:4px;}
+.about-blocks{display:grid;grid-template-columns:1fr 1fr;border-bottom:4px solid #000;}
+.ab{padding:28px 24px;border-right:3px solid #000;}
+.ab:last-child{border-right:none;}
+.ab h3{font-size:18px;font-weight:900;font-family:"Arial Black",sans-serif;text-transform:uppercase;margin-bottom:12px;}
+.ab p{font-size:13px;line-height:1.7;opacity:0.8;}
+.ab ul{margin-top:12px;list-style:none;}
+.ab ul li{font-size:13px;padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.1);display:flex;align-items:center;gap:8px;}
+.ab ul li::before{content:"→";font-weight:900;color:#ff2e63;}
+.team-section{padding:28px;}
+.team-section h2{font-size:24px;font-weight:900;text-transform:uppercase;font-family:"Arial Black",sans-serif;margin-bottom:20px;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
+.team-card{background:#fff;border:3px solid #000;box-shadow:4px 4px 0 #000;padding:18px 14px;text-align:center;}
+.team-avatar{width:52px;height:52px;border-radius:50%;border:3px solid #000;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;}
+.team-name{font-size:13px;font-weight:900;text-transform:uppercase;}
+.team-role{font-size:11px;opacity:0.5;margin-top:3px;}
+
+/* CONTACT */
+.contact-header{background:#ff2e63;border-bottom:4px solid #000;padding:36px 28px;color:#fff;}
+.contact-header h1{font-size:44px;font-weight:900;font-family:"Arial Black",sans-serif;text-transform:uppercase;line-height:1;color:#fff;}
+.contact-header p{color:rgba(255,255,255,0.8);font-size:14px;margin-top:10px;}
+.contact-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.contact-form-wrap{padding:28px;border-right:3px solid #000;}
+.contact-form-wrap h3{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;opacity:0.5;}
+.field{margin-bottom:14px;}
+.field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;opacity:0.6;}
+.inp{width:100%;background:#fff;border:3px solid #000;padding:10px 12px;font-size:13px;font-weight:600;font-family:Arial,sans-serif;outline:none;transition:box-shadow 0.08s;}
+.inp:focus{box-shadow:4px 4px 0 #000;}
+.inp-msg{height:90px;resize:none;}
+.select-inp{appearance:none;cursor:pointer;}
+.contact-info{padding:28px;}
+.contact-info h3{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;opacity:0.5;}
+.info-item{background:#fff;border:3px solid #000;box-shadow:4px 4px 0 #000;padding:16px 14px;margin-bottom:12px;}
+.info-item-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:0.5;margin-bottom:4px;}
+.info-item-val{font-size:14px;font-weight:900;}
+.hours-table{width:100%;font-size:12px;margin-top:6px;}
+.hours-table tr td:first-child{opacity:0.6;}
+.hours-table tr td:last-child{font-weight:700;text-align:right;}
+.toast{background:#000;color:#f9d923;border:3px solid #f9d923;padding:12px 18px;font-size:13px;font-weight:700;position:fixed;bottom:16px;right:16px;z-index:99;transform:translateY(80px);opacity:0;transition:all 0.2s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.footer{background:#000;color:#f9d923;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+</style>
+
+<div class="app">
+  <header class="header">
+    <div class="logo" onclick="goPage('home')">BRUTAL<br>COFFEE ☕</div>
+    <nav class="nav">
+      <button class="nav-btn active" onclick="goPage('home')">Home</button>
+      <button class="nav-btn" onclick="goPage('menu')">Menu</button>
+      <button class="nav-btn" onclick="goPage('about')">About</button>
+      <button class="nav-btn" onclick="goPage('contact')">Contact</button>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <div class="page active" id="pg-home">
+    <div class="hero">
+      <div class="hero-deco">☕</div>
+      <span class="hero-badge">Est. 2024 — No Rules</span>
+      <h1>Strong Coffee.<br>Zero Mercy.</h1>
+      <p>We brew it raw. We serve it bold. Come for the coffee, stay because you physically cannot leave.</p>
+      <button class="btn btn-yellow" onclick="goPage('menu')">See Our Menu →</button>
+    </div>
+    <div class="home-features">
+      <div class="feat">
+        <span class="feat-icon" style="font-size:24px;">⚡</span>
+        <div class="feat-title">Maximum Caffeine</div>
+        <div class="feat-text">Every drink engineered for maximum impact. No half measures.</div>
+      </div>
+      <div class="feat">
+        <span class="feat-icon" style="font-size:24px;">🖤</span>
+        <div class="feat-title">No Decaf. Ever.</div>
+        <div class="feat-text">We don't stock it. We don't make it. We won't discuss it.</div>
+      </div>
+      <div class="feat">
+        <span class="feat-icon" style="font-size:24px;">🔥</span>
+        <div class="feat-title">Open 3AM</div>
+        <div class="feat-text">Because bad decisions don't wait until business hours.</div>
+      </div>
+      <div class="feat">
+        <span class="feat-icon" style="font-size:24px;">💀</span>
+        <div class="feat-title">No Apologies</div>
+        <div class="feat-text">Bold flavours. Loud branding. Zero regrets.</div>
+      </div>
+    </div>
+    <div class="home-cta">
+      <div>
+        <h2>Ready to Order?</h2>
+        <p>Browse our full menu — from the classic drip to the legendary Death Shot.</p>
+      </div>
+      <button class="btn btn-pink" onclick="goPage('menu')">Order Now →</button>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="page" id="pg-menu">
+    <div class="menu-header">
+      <h2>Our Menu</h2>
+      <div class="filter-bar">
+        <button class="filter-btn on" onclick="filterMenu('all',this)">All</button>
+        <button class="filter-btn" onclick="filterMenu('hot',this)">Hot</button>
+        <button class="filter-btn" onclick="filterMenu('cold',this)">Cold</button>
+        <button class="filter-btn" onclick="filterMenu('specialty',this)">Specialty</button>
+      </div>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+    <div class="cart-bar">
+      <div class="cart-info">Cart <span class="cart-count" id="cartCount">0</span> items</div>
+      <button class="btn btn-yellow" style="padding:8px 20px;font-size:12px;" onclick="checkout()">Checkout →</button>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="page" id="pg-about">
+    <div class="about-hero">
+      <h1>We Don't<br>Do Gentle.</h1>
+      <p>Founded in a garage with one broken espresso machine and a grudge against weak coffee. Every cup we make is a statement against mediocrity.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat"><span class="stat-num">12K</span><span class="stat-label">Cups / Month</span></div>
+      <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Repeat Addicts</span></div>
+      <div class="stat"><span class="stat-num">3AM</span><span class="stat-label">We Open</span></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Decaf Options</span></div>
+    </div>
+    <div class="about-blocks">
+      <div class="ab">
+        <h3>Our Story</h3>
+        <p>Started in 2018 by two sleep-deprived engineers who couldn't find a coffee shop open at 3AM. We became that shop. Then we became the only shop that matters.</p>
+        <p style="margin-top:10px;">We roast our own beans. We don't outsource our grinding. We take it personally.</p>
+      </div>
+      <div class="ab">
+        <h3>Our Rules</h3>
+        <ul>
+          <li>No decaf. Not negotiable.</li>
+          <li>No caramel drizzle nonsense.</li>
+          <li>Whole milk or black. Pick one.</li>
+          <li>We close when we feel like it.</li>
+          <li>The customer is usually wrong.</li>
+          <li>But we love you anyway.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="team-section">
+      <h2>The Crew</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar" style="background:#ff2e63;color:#fff;">JR</div>
+          <div class="team-name">Jake Ramos</div>
+          <div class="team-role">Founder & Head Brewer</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:#000;color:#f9d923;">SL</div>
+          <div class="team-name">Sara Lin</div>
+          <div class="team-role">Chief Roaster</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:#f9d923;color:#000;border:3px solid #000;">MK</div>
+          <div class="team-name">Marco K.</div>
+          <div class="team-role">3AM Shift Legend</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:#ff2e63;color:#fff;">AL</div>
+          <div class="team-name">Amy Lee</div>
+          <div class="team-role">Espresso Enforcer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page" id="pg-contact">
+    <div class="contact-header">
+      <h1>Talk To Us.<br>We Dare You.</h1>
+      <p>We actually read every message. Mostly to judge the grammar.</p>
+    </div>
+    <div class="contact-body">
+      <div class="contact-form-wrap">
+        <h3>Send a Message</h3>
+        <div class="field"><label>Your Name</label><input class="inp" type="text" placeholder="FULL NAME" id="cName"></div>
+        <div class="field"><label>Email</label><input class="inp" type="email" placeholder="YOUR@EMAIL.COM" id="cEmail"></div>
+        <div class="field">
+          <label>Subject</label>
+          <select class="inp select-inp" id="cSubject">
+            <option value="">SELECT A TOPIC</option>
+            <option>Order Issue</option>
+            <option>Feedback</option>
+            <option>Partnership</option>
+            <option>Complaint (we're ready)</option>
+            <option>Just Saying Hi</option>
+          </select>
+        </div>
+        <div class="field"><label>Message</label><textarea class="inp inp-msg" placeholder="SAY IT RAW." id="cMsg"></textarea></div>
+        <button class="btn btn-pink" style="width:100%;padding:13px;" onclick="submitForm()">Send It →</button>
+      </div>
+      <div class="contact-info">
+        <h3>Find Us</h3>
+        <div class="info-item">
+          <div class="info-item-label">Address</div>
+          <div class="info-item-val">14 Raw St, The Brutalist Quarter</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Phone</div>
+          <div class="info-item-val">+1 (800) NO-DECAF</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Email</div>
+          <div class="info-item-val">brutal@coffee.raw</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-label">Opening Hours</div>
+          <table class="hours-table">
+            <tr><td>Mon – Fri</td><td>3AM – Midnight</td></tr>
+            <tr><td>Saturday</td><td>3AM – 2AM</td></tr>
+            <tr><td>Sunday</td><td>Never Closes</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>Brutal Coffee © 2024</span>
+    <span>No Decaf. No Mercy. No Apologies.</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const menuItems = [
+  {icon:"⚡",name:"Death Shot",desc:"Triple espresso. Not for the timid.",price:"$4.50",tag:"BEST",cat:"hot specialty"},
+  {icon:"🖤",name:"Black Out",desc:"Cold brew, 24h steep, max damage.",price:"$5.00",cat:"cold"},
+  {icon:"🔥",name:"Inferno Latte",desc:"Whole milk. No apologies.",price:"$5.50",tag:"HOT",cat:"hot"},
+  {icon:"❄️",name:"Brutal Cold",desc:"Ice cold. No sugar. Take it raw.",price:"$4.00",tag:"NEW",cat:"cold"},
+  {icon:"💀",name:"The Reaper",desc:"4-shot espresso, zero remorse.",price:"$6.00",cat:"hot specialty"},
+  {icon:"☕",name:"Classic Drip",desc:"Simple. Brutal. Effective.",price:"$3.00",cat:"hot"},
+  {icon:"🧊",name:"Frozen Beast",desc:"Cold brew over crushed ice. Mean.",price:"$4.50",cat:"cold specialty"},
+  {icon:"🌑",name:"Midnight Black",desc:"Dark roast. Darker attitude.",price:"$3.50",cat:"hot"},
+];
+
+let cart = 0;
+
+const grid = document.getElementById("menuGrid");
+menuItems.forEach((item,i) => {
+  const d = document.createElement("div");
+  d.className = "mcard";
+  d.dataset.cat = item.cat;
+  d.innerHTML = `${item.tag?`<span class="mcard-tag">${item.tag}</span>`:""}
+    <span class="mcard-icon" style="font-size:24px;">${item.icon}</span>
+    <div class="mcard-name">${item.name}</div>
+    <div class="mcard-desc">${item.desc}</div>
+    <div class="mcard-price">${item.price}</div>`;
+  d.onclick = () => { cart++; document.getElementById("cartCount").textContent = cart; showToast("☕ "+item.name+" added — "+item.price); };
+  grid.appendChild(d);
+});
+
+function filterMenu(type, btn) {
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("on"));
+  btn.classList.add("on");
+  document.querySelectorAll(".mcard").forEach(c => {
+    c.classList.toggle("hidden", type !== "all" && !c.dataset.cat.includes(type));
+  });
+}
+
+function goPage(id) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("pg-"+id).classList.add("active");
+  const idx = ["home","menu","about","contact"].indexOf(id);
+  document.querySelectorAll(".nav-btn")[idx].classList.add("active");
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(window._tt);
+  window._tt = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+function checkout() {
+  if(cart === 0){ showToast("⚠ Cart is empty. Pick something."); return; }
+  showToast("✓ Order placed. "+cart+" item"+(cart>1?"s":"")+" incoming.");
+  cart = 0;
+  document.getElementById("cartCount").textContent = 0;
+}
+
+function submitForm() {
+  const n = document.getElementById("cName").value.trim();
+  const e = document.getElementById("cEmail").value.trim();
+  if(!n || !e){ showToast("⚠ Name + email required."); return; }
+  showToast("✓ Got it, "+n+". We'll reply... eventually.");
+  ["cName","cEmail","cMsg"].forEach(id => document.getElementById(id).value="");
+  document.getElementById("cSubject").selectedIndex = 0;
+}
+</script>
